@@ -1,0 +1,39 @@
+#!/bin/bash
+
+mkdir -p "$HOME/Repos"
+mkdir -p "$HOME/Repos/github.com/cgvrcarlos"
+mkdir -p "$HOME/Repos/github.com/cgvrcarlos/dotfiles"
+mkdir -p "$HOME/.zsh"
+mkdir -p "$HOME/.zfunc"
+mkdir -p "$HOME/.local/bin"
+
+# +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+#      Package Manager
+# +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+if [[ "$OSTYPE" == darwin* ]]; then
+  # Para MacOS
+  if ! command -v brew &> /dev/null; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+
+  brew install neovim tmux fzf zsh
+
+else
+  # Para Arch Linux
+  if ! command -v yay &> /dev/null; then
+    echo "yay no está instalado. Instalando yay..."
+    sudo pacman -S --needed git base-devel
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si
+    cd ..
+    rm -rf yay
+  fi
+
+  yay -S --needed neovim tmux fzf python zsh
+
+fi
+
+curl https://pyenv.run | bash
+
+chsh -s $(which zsh)
