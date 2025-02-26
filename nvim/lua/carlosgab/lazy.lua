@@ -9,6 +9,15 @@ if not vim.loop.fs_stat(lazypath) then
     lazypath,
   })
 end
+
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("carlosgab.plugins")
+require("lazy").setup({ import = "carlosgab.plugins" }, {
+  checker = {
+    enabled = true,
+    notify = false,
+  },
+  change_detection = {
+    notify = false,
+  },
+})

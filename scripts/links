@@ -1,0 +1,21 @@
+#!/usr/sbin/zsh
+
+create_symlink() {
+  local source=$1
+  local target=$2
+
+  if [ -L "$target" ]; then
+    echo "El enlace simbolico ya existe: $target"
+  elif [ -e "$target" ]; then
+    echo "Ya existe un archivo o directorio enla ruta destino: $target. No se puede crear el enlace."
+  else
+    ln -s "$source" "$target"
+    echo "Enlace simbólico creado: $source -> $target"
+  fi
+}
+
+create_symlink "$HOME/Repos/github.com/cgvrcarlos/dotfiles/.zshrc" "$HOME/.zshrc"
+create_symlink "$HOME/Repos/github.com/cgvrcarlos/dotfiles/nvim" "$HOME/.config/nvim"
+create_symlink "$HOME/Repos/github.com/cgvrcarlos/dotfiles/tmux/.tmux.conf" "$HOME/.tmux.conf"
+
+source $HOME/.zshrc

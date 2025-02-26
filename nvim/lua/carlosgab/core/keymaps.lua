@@ -13,9 +13,9 @@ keymap.set("n", "<C-u>", "<C-u>zz")
 -- better delete and paste
 keymap.set("x", "<leader>p", '"_dP', { desc = "Paste without replacing clipboard" })
 
-keymap.set("n", "<leader>y", '"+y')
-keymap.set("n", "<leader>Y", '"+y')
-keymap.set("v", "<leader>y", '"+y')
+keymap.set("n", "<leader>y", '"+y', { desc = "Paste to clipboard" })
+keymap.set("n", "<leader>Y", '"+y', { desc = "Paste to clipboard" })
+keymap.set("v", "<leader>y", '"+y', { desc = "Paste to clipboard" })
 
 -- increment and decrement numbers
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" })
