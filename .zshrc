@@ -2,7 +2,9 @@
 #           Enviroment Variables           
 # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-set -o vi
+bindkey -e
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
 
 export VISUAL=nvim
 export EDITOR=nvim
@@ -40,6 +42,7 @@ path=(
 )
 
 typeset -U path
+
 path=($^path(N-/))
 
 export PATH
@@ -70,6 +73,7 @@ else
 fi
 
 autoload -U promptinit; promptinit
+
 prompt pure
 
 # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -125,8 +129,7 @@ if type brew &>/dev/null; then
     FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 fi
 
-autoload -Uz compinit
-compinit -u
+autoload -U compinit && compinit
 
 zinit cdreplay -q
 
@@ -143,10 +146,22 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 #           Sourcing
 # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-source <(fzf --zsh)
-eval "$(pyenv init - zsh)"
+# Fuzzy finder
+if command -v fzf >/dev/null 2>&1; then
+    source <(fzf --zsh)
+fi
 
-# tmux
-if [ -z "$TMUX" ]; then
+# Python version manager
+if command -v pyenv >/dev/null 2>&1; then
+    eval "$(pyenv init - zsh)"
+fi
+
+# Node version manager
+if command -v fnm >/dev/null 2>&1; then
+    eval "$(fnm env --use-on-cd --shell zsh)"
+fi
+
+# Start tmux session if not already in one
+if command -v tmux >/dev/null 2>&1 && [ -z "$TMUX" ]; then
     tmux attach -t default || tmux new -s default
 fi

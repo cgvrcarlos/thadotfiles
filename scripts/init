@@ -1,11 +1,22 @@
 #!/bin/bash
 
+# +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+#     directory creation
+# +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
 mkdir -p "$HOME/Repos"
 mkdir -p "$HOME/Repos/github.com/cgvrcarlos"
 mkdir -p "$HOME/Repos/github.com/cgvrcarlos/dotfiles"
 mkdir -p "$HOME/.zsh"
 mkdir -p "$HOME/.zfunc"
 mkdir -p "$HOME/.local/bin"
+
+# +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+#      pure install
+# +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+if [ ! -d "$HOME/.zsh/pure" ]; then
+  git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
+fi
 
 # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 #      Package Manager
@@ -19,21 +30,44 @@ if [[ "$OSTYPE" == darwin* ]]; then
   brew install neovim tmux fzf zsh
 
 else
-  # Para Arch Linux
-  if ! command -v yay &> /dev/null; then
-    echo "yay no está instalado. Instalando yay..."
-    sudo pacman -S --needed git base-devel
-    git clone https://aur.archlinux.org/yay.git
-    cd yay
-    makepkg -si
-    cd ..
-    rm -rf yay
+  # Para Linux
+  if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    case $ID in
+      arch)
+        # Arch Linux
+        if ! command -v yay &> /dev/null; then
+          echo "yay no está instalado. Instalando yay..."
+          sudo pacman -S --needed git base-devel
+          git clone https://aur.archlinux.org/yay.git
+          cd yay
+          makepkg -si
+          cd ..
+          rm -rf yay
+        fi
+        yay -S --needed neovim tmux fzf zsh
+        ;;
+        
+      ubuntu|debian)
+        # Ubuntu/Debian
+        sudo apt update
+        sudo apt install -y neovim tmux fzf zsh
+        ;;
+        
+      fedora)
+        # Fedora
+        sudo dnf install -y neovim tmux fzf zsh
+        ;;
+        
+      *)
+        echo "Distribución no soportada: $ID"
+        exit 1
+        ;;
+    esac
+  else
+    echo "No se puede determinar la distribución Linux"
+    exit 1
   fi
-
-  yay -S --needed neovim tmux fzf python zsh
-
 fi
-
-curl https://pyenv.run | bash
 
 chsh -s $(which zsh)
