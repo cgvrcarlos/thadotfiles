@@ -5,4 +5,3 @@ return {
     require('mini.indentscope').setup()
   end,
 }
-

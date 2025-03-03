@@ -12,8 +12,8 @@ return {
       yellow = "#f1fa8c",
       red = "#ff5555",
       fg = "#f8f8f2",
-      bg = "#282a36",
-      inactive_bg = "#282a36",
+      bg = nil,
+      inactive_bg = nil,
     }
 
     local my_lualine_theme = {
@@ -52,8 +52,10 @@ return {
     -- configure lualine with modified theme
     lualine.setup({
       options = {
-        theme = my_lualine_theme,
+        theme = "catppuccin",
+        section_separators = { left = '', right = '' }
       },
+      extensions = { "nvim-tree" },
       sections = {
         lualine_x = {
           {
