@@ -97,6 +97,8 @@ alias scripts="cd $SCRIPTS"
 
 # Navigation Repos
 alias repos="cd $REPOS"
+alias work="cd $REPOS/gitlab.egas.com.mx/carlos.vazquez/"
+alias personal="cd $REPOS/github.com/cgvrcarlos/"
 alias ghrepos="cd $GHREPOS"
 alias dot="cd $GHREPOS/dotfiles"
 
