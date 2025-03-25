@@ -16,6 +16,6 @@ create_symlink() {
 
 create_symlink "$HOME/Repos/github.com/cgvrcarlos/dotfiles/.zshrc" "$HOME/.zshrc"
 create_symlink "$HOME/Repos/github.com/cgvrcarlos/dotfiles/nvim" "$HOME/.config/nvim"
-create_symlink "$HOME/Repos/github.com/cgvrcarlos/dotfiles/tmux/.tmux.conf" "$HOME/.tmux.conf"
+create_symlink "$HOME/Repos/github.com/cgvrcarlos/dotfiles/tmux" "$HOME/.config/tmux"
 
 source $HOME/.zshrc

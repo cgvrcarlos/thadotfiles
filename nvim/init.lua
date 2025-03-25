@@ -1,2 +1,2 @@
-require("carlosgab.core")
-require("carlosgab.lazy")
+require("config.lazy")
+require("config.core")
