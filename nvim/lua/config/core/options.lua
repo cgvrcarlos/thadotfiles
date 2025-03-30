@@ -17,11 +17,13 @@ opt.number = true
 opt.relativenumber = true
 
 -- tabs and indentation
-opt.tabstop = 2
-opt.shiftwidth = 2
 opt.expandtab = false
+opt.shiftwidth = 2
+opt.tabstop = 2
+opt.softtabstop = 2
 opt.autoindent = true
 opt.smartindent = true
+opt.smarttab = true
 
 -- wraping
 opt.wrap = false
