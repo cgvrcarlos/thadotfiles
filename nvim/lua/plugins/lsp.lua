@@ -78,7 +78,7 @@ return {
 						[vim.diagnostic.severity.ERROR] = "󰅚 ",
 						[vim.diagnostic.severity.WARN] = "󰀪 ",
 						[vim.diagnostic.severity.INFO] = "󰋽 ",
-						[vim.diagnostic.severity.HINT] = "󰌶 ",
+						[vim.diagnostic.severity.HINT] = " ",
 					},
 				},
 				virtual_text = {
@@ -148,6 +148,9 @@ return {
 				-- Typescript
 				ts_ls = {},
 				eslint = {},
+
+				-- Prisma server
+				prismals = {},
 			}
 
 			-- Ensure the servers and tools above are installed
@@ -166,8 +169,6 @@ return {
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format Lua code
-				"mypy", -- Used to lint python code
-				"black", -- Used to format python code
 				"prettier", -- Used to format code
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })

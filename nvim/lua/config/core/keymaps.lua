@@ -2,7 +2,8 @@ vim.g.mapleader = " "
 
 local keymap = vim.keymap
 
-keymap.set("n", "-", ":Oil --float<CR>", { desc = "Open parent directory" })
+-- explorer
+keymap.set("n", "-", ":lua MiniFiles.open()<CR>", { desc = "Open parent directory" })
 
 -- skip single character
 keymap.set("n", "x", '"_x')
