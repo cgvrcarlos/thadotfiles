@@ -4,7 +4,6 @@ return {
 	build = ":TSUpdate",
 	dependencies = {
 		"windwp/nvim-ts-autotag",
-		"nvim-treesitter/nvim-treesitter-context",
 	},
 	config = function()
 		local treesitter = require("nvim-treesitter.configs")
@@ -27,6 +26,7 @@ return {
 				"gitignore",
 				"python",
 				"c",
+				"prisma",
 			},
 			incremental_selection = {
 				enable = true,

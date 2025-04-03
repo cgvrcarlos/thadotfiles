@@ -1,10 +1,10 @@
 return {
 	"b0o/incline.nvim",
 	event = "VeryLazy",
-	dependencies = { 'nvim-tree/nvim-web-devicons' },
+	dependencies = "echasnovski/mini.icons",
 	config = function()
 		local incline = require("incline")
-		local devicons = require("nvim-web-devicons")
+		local miniicons = require("mini.icons")
 
 		incline.setup({
 			render = function(props)
@@ -12,10 +12,10 @@ return {
 				if filename == "" then
 					filename = "[No Name]"
 				end
-				local ft_icon, ft_color = devicons.get_icon_color(filename)
+				local ft_icon, ft_color = miniicons.get("file", filename)
 
 				local function get_git_diff()
-					local icons = { removed = "", changed = "", added = "" }
+					local icons = { removed = " ", changed = " ", added = " " }
 					local signs = vim.b[props.buf].gitsigns_status_dict
 					local labels = {}
 					if signs == nil then
@@ -33,7 +33,7 @@ return {
 				end
 
 				local function get_diagnostic_label()
-					local icons = { error = "", warn = "", info = "", hint = "" }
+					local icons = { error = "󰅚 ", warn = "󰀪 ", info = "󰋽 ", hint = " " }
 					local label = {}
 
 					for severity, icon in pairs(icons) do
@@ -54,9 +54,9 @@ return {
 				return {
 					{ get_diagnostic_label() },
 					{ get_git_diff() },
-					{ (ft_icon or "") .. " ", guifg = ft_color, guibg = "none" },
+					{ (ft_icon or "") .. " ", guifg = ft_color, group = ft_color },
 					{ filename .. " ", gui = vim.bo[props.buf].modified and "bold,italic" or "bold" },
-					{ "┊  " .. vim.api.nvim_win_get_number(props.win), group = "DevIconWindows" },
+					{ "┊  " .. vim.api.nvim_win_get_number(props.win), group = "MiniIconsBlue" },
 				}
 			end,
 		})
